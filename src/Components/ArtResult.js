@@ -17,12 +17,18 @@ const ArtResult = (props) => {
       }
     };
     getSingleArt();
-  }, []);
+  }, [props.display]);
 
   return (
     <div className="ArtResult">
       <img src={artResult.primaryImageSmall} alt={artResult.title} />
-      <ArtInfo title={artResult.title} artist={artResult.artistDisplayName} period={artResult.peroid} medium={artResult.medium}department ={artResult.department}/>
+      <ArtInfo
+        title={artResult.title}
+        artist={artResult.artistDisplayName}
+        period={artResult.peroid}
+        medium={artResult.medium}
+        department={artResult.department}
+      />
       {/* {props.display} */}
       {console.log({ artResult })}
     </div>
