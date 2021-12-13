@@ -31,7 +31,7 @@ const Upper = (props) => {
       const tempArr = [];
       //  set first 10 results as setTenResults
       //  temporarily set to 1 result while I work on other components
-      for (let i = 0; i < 1; i++) {
+      for (let i = 0; i < 10; i++) {
         // using data direct from Met server in this function as artDispatcher might not have run yet
         tempArr.push(data.objectIDs[i]);
       }

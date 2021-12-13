@@ -4,19 +4,10 @@ import ArtResult from "./ArtResult";
 const Lower = (props) => {
   const results = props.results;
   let display = results.map((ele, index) => {
-    return (
-      //   <div key={index}>
-      //     <div>{ele}</div>
-      //   </div>
-      ele
-    );
+    return <ArtResult display={ele} key={index} />;
   });
 
-  return (
-    <div className="Lower">
-      <ArtResult  display={display} />
-    </div>
-  );
+  return <div className="Lower">{display}</div>;
 };
 
 export default Lower;
