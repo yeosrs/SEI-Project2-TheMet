@@ -19,7 +19,7 @@ const ArtResult = (props) => {
   }, [props.display]);
 
   return (
-    <div className="ArtResult">
+    <div className="ArtResult text-center">
       <img src={artResult.primaryImageSmall} alt={artResult.title} />
       <ArtInfo
         title={artResult.title}
@@ -29,8 +29,6 @@ const ArtResult = (props) => {
         medium={artResult.medium}
         department={artResult.department}
       />
-      {/* {props.display} */}
-      {/* {console.log({ artResult })} */}
     </div>
   );
 };

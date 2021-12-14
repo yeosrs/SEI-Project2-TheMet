@@ -13,7 +13,7 @@ const searchReducer = (artState, action) => {
 
 const Upper = (props) => {
   const [pages, setPages] = useState("");
-  const [linkPages, setLinkPages] = useState([1]);
+  const [linkPages, setLinkPages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [artState, ArtDispatcher] = useReducer(searchReducer, {
     artIDs: [],
@@ -27,7 +27,6 @@ const Upper = (props) => {
   const searchThis = async () => {
     try {
       const url = `https://collectionapi.metmuseum.org/public/collection/v1/search?q=${artState.query}`;
-      console.log(url);
       const res = await fetch(url);
       const data = await res.json();
       //  add data to artState.artIDs
@@ -44,13 +43,11 @@ const Upper = (props) => {
       const tempPagesArr = [];
 
       if (pages <= 10) {
-        console.log("less than or equal 10 pages!");
         for (let i = 1; i <= pages; i++) {
           //run loop number of times of pages
           tempPagesArr.push(i);
         }
       } else if (pages > 10) {
-        console.log("more than 10 pages!");
         //run loop for 10 times and add in last page of pages
         for (let i = 1; i <= 10; i++) {
           tempPagesArr.push(i);
@@ -64,18 +61,22 @@ const Upper = (props) => {
     }
   };
 
-  //   useEffect(()=>{
-  // //create links for current page
-
-  //   },[linkPages])
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
     const lastArt = currentPage * 10; // last piece of art to be displayed
     const firstArt = lastArt - 10; //first piece of art to be displayed
     const shownArt = artState.artIDs.objectIDs.slice(firstArt, lastArt); // to get what will be shown on screen
     const tempPagesArr = [];
-    if (pageNumber >= 6) {
+    if (pageNumber <= 6 && pages <= 6) {
+      for (let i = 1; i <= pages; i++) {
+        //run loop number of times of pages
+        tempPagesArr.push(i);
+      }
+    } else if (pageNumber >= pages - 5) {
+      for (let i = pageNumber - 5; i <= pages; i++) {
+        tempPagesArr.push(i);
+      }
+    } else if (pageNumber >= 7) {
       tempPagesArr.push(1);
       for (let i = pageNumber - 5; i <= pageNumber + 5; i++) {
         tempPagesArr.push(i);
@@ -94,14 +95,11 @@ const Upper = (props) => {
   return (
     <div className="Upper">
       <Form submitInput={searchThis} passInput={handleInputChange} />
-      <Pagination paginate={paginate} linkPages={linkPages} />
-      {/* <table className="results">
-        <tbody>
-          <tr></tr>
-        </tbody>
-      </table> */}
-      {console.log({ artState })}
-      {console.log({ linkPages })}
+      <Pagination
+        paginate={paginate}
+        linkPages={linkPages}
+        className="text-center"
+      />
     </div>
   );
 };
