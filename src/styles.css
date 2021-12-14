@@ -1,0 +1,13 @@
+.ArtResult {
+  border: 1px solid black;
+  vertical-align: middle;
+}
+
+.ArtInfo {
+  border: 1px solid black;
+  display: inline-block;
+  margin: 5px;
+  padding: 5px;
+  vertical-align: 5em;
+  max-width: 400px;
+}

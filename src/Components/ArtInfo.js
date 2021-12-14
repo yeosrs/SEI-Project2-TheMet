@@ -6,6 +6,7 @@ const ArtInfo = (props) => {
       Title: {props.title} <br />
       Artist: {props.artist} <br />
       Period: {props.period} <br />
+      Date: {props.date} <br />
       Medium: {props.medium} <br />
       Department: {props.department}
     </div>

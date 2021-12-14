@@ -1,5 +1,6 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState } from "react";
 import Form from "./Form";
+import Pagination from "./Pagination";
 
 const searchReducer = (artState, action) => {
   switch (action.type) {
@@ -11,6 +12,9 @@ const searchReducer = (artState, action) => {
 };
 
 const Upper = (props) => {
+  const [pages, setPages] = useState("");
+  const [linkPages, setLinkPages] = useState([1]);
+  const [currentPage, setCurrentPage] = useState(1);
   const [artState, ArtDispatcher] = useReducer(searchReducer, {
     artIDs: [],
     query: "",
@@ -30,31 +34,74 @@ const Upper = (props) => {
       ArtDispatcher({ type: "store-this-art", payload: { artIDs: data } });
       const tempArr = [];
       //  set first 10 results as setTenResults
-      //  temporarily set to 1 result while I work on other components
       for (let i = 0; i < 10; i++) {
         // using data direct from Met server in this function as artDispatcher might not have run yet
         tempArr.push(data.objectIDs[i]);
       }
 
+      // break up results into pages of 10
+      setPages(Math.ceil(data.objectIDs.length / 10));
+      const tempPagesArr = [];
+
+      if (pages <= 10) {
+        console.log("less than or equal 10 pages!");
+        for (let i = 1; i <= pages; i++) {
+          //run loop number of times of pages
+          tempPagesArr.push(i);
+        }
+      } else if (pages > 10) {
+        console.log("more than 10 pages!");
+        //run loop for 10 times and add in last page of pages
+        for (let i = 1; i <= 10; i++) {
+          tempPagesArr.push(i);
+        }
+        tempPagesArr.push(pages);
+      }
+      setLinkPages(tempPagesArr); //set state of page links to create
       props.setTenResults(tempArr);
-      //   for (const number of data.objectIDs) {
-      //   const oneArt = document.createElement("div");
-      //   oneArt.setAttribute("class", "oneArt");
-      //   const objectIDDiv = document.createElement("div");
-      //   objectIDDiv.innerText = number;
-      //   oneArt.append(objectIDDiv);
-      //   document.querySelector("#results").append(oneArt);
-      // }
     } catch (err) {
       console.log(err.message);
     }
   };
 
+  //   useEffect(()=>{
+  // //create links for current page
+
+  //   },[linkPages])
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+    const lastArt = currentPage * 10; // last piece of art to be displayed
+    const firstArt = lastArt - 10; //first piece of art to be displayed
+    const shownArt = artState.artIDs.objectIDs.slice(firstArt, lastArt); // to get what will be shown on screen
+    const tempPagesArr = [];
+    if (pageNumber >= 6) {
+      tempPagesArr.push(1);
+      for (let i = pageNumber - 5; i <= pageNumber + 5; i++) {
+        tempPagesArr.push(i);
+      }
+      tempPagesArr.push(pages);
+    } else {
+      for (let i = 1; i <= 10; i++) {
+        tempPagesArr.push(i);
+      }
+      tempPagesArr.push(pages);
+    }
+    setLinkPages(tempPagesArr); //set state of page links to create
+    props.setTenResults(shownArt);
+  };
+
   return (
     <div className="Upper">
       <Form submitInput={searchThis} passInput={handleInputChange} />
-
+      <Pagination paginate={paginate} linkPages={linkPages} />
+      {/* <table className="results">
+        <tbody>
+          <tr></tr>
+        </tbody>
+      </table> */}
       {console.log({ artState })}
+      {console.log({ linkPages })}
     </div>
   );
 };

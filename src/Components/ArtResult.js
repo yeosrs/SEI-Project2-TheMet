@@ -8,7 +8,6 @@ const ArtResult = (props) => {
     const getSingleArt = async () => {
       try {
         const url = `https://collectionapi.metmuseum.org/public/collection/v1/objects/${props.display}`;
-        console.log(url);
         const res = await fetch(url);
         const data = await res.json();
         setArtResult(data);
@@ -25,12 +24,13 @@ const ArtResult = (props) => {
       <ArtInfo
         title={artResult.title}
         artist={artResult.artistDisplayName}
-        period={artResult.peroid}
+        period={artResult.period}
+        date={artResult.objectDate}
         medium={artResult.medium}
         department={artResult.department}
       />
       {/* {props.display} */}
-      {console.log({ artResult })}
+      {/* {console.log({ artResult })} */}
     </div>
   );
 };

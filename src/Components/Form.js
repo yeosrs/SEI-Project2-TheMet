@@ -2,20 +2,10 @@ import React from "react";
 import Button from "./Button";
 import Input from "./Input";
 
-// const searchReducer = (artState, action) => {
-//   switch (action.type) {
-//     default:
-//       return { ...artState, query: action.query };
-//   }
-// };
+
 
 const Form = (props) => {
-  // const [input, setInput] = useState({ searchTerm: "" });
 
-  // const [artState, ArtDispatcher] = useReducer(searchReducer, {
-  //   artIDs: [],
-  //   query: "",
-  // });
 
   const handleClick = (event) => {
     event.preventDefault();
