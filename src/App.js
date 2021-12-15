@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import Upper from "./Components/Upper";
 import Lower from "./Components/Lower";
+// import Navbar from "./Components/Navbar";
 
 function App() {
   const [tenResults, setTenResults] = useState([]);
 
   return (
-    <div>
-      <h2 className="text-center">The Met</h2>
+    <>
+      {/* <Navbar/> */}
       <Upper setTenResults={setTenResults}/>
       <Lower results={tenResults}/>
-    </div>
+    </>
   );
 }
 
