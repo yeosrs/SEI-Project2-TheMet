@@ -15,7 +15,7 @@ const Modal = (props) => {
           <h6 className="modal-artist">{props.artist}</h6>
         </div>
         <div className="modal-body">
-          <img src={props.image} alt={props.title} />
+          <img className="modal-image" src={props.image} alt={props.title} />
         </div>
         <div className="modal-footer">
           <button onClick={props.onClose} className="button">

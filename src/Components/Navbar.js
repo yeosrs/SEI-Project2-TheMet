@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react/cjs/react.development";
-
+// import {NavLink} from "react-router-dom"
 const Navbar = (props) => {
   const [departments, setDepartments] = useState({ departments: [1] });
   const deptID = [
@@ -24,11 +24,6 @@ const Navbar = (props) => {
 
   let depts = departments.departments.map((ele) => {
     return (
-      //   <li key={ele.departmentID}>
-      //     <a className="dropdown-item" href="!#">
-      //       {ele.displayName}
-      //     </a>
-      //   </li>
       <option
         key={ele.departmentId}
         value={ele.departmentId}
@@ -49,6 +44,7 @@ const Navbar = (props) => {
         <a className="navbar-brand" href="http://localhost:3000/">
           The Met
         </a>
+        {/* <NavLink className="navbar-brand" to="/">The Met</NavLink> */}
         <button
           className="navbar-toggler"
           type="button"
@@ -60,9 +56,10 @@ const Navbar = (props) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link active" href="!#">
+              {/* <a className="nav-link active" href="!#">
                 About The Met
-              </a>
+              </a> */}
+              {/* <NavLink className="navbar-brand" to="/about-the-met">About The Met</NavLink> */}
             </li>
             <li className="nav-item dropdown">
               <a
@@ -74,12 +71,15 @@ const Navbar = (props) => {
               >
                 Departments
               </a>
-              <ul
+              <select
                 className="dropdown-menu"
-                onChange={(e) => setSelected(e.target.key)}
+                onChange={(e) => {
+                  console.log(selected);
+                  setSelected(e.target.value);
+                }}
               >
                 {depts}
-              </ul>
+              </select>
             </li>
           </ul>
         </div>
