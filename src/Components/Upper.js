@@ -131,7 +131,10 @@ const Upper = (props) => {
       const res = await fetch(url);
       const data = await res.json();
       //  add data to artState.artIDs
-      ArtDispatcher({ type: "store-this-art", payload: { artIDs: data.objectIDs } });
+      ArtDispatcher({
+        type: "store-this-art",
+        payload: { artIDs: data.objectIDs },
+      });
       const tempArr = [];
       //  set first 10 results as setTenResults
       for (let i = 0; i < 10; i++) {
@@ -168,7 +171,6 @@ const Upper = (props) => {
     } catch (err) {
       console.log(err.message);
     }
-    console.log(number);
   };
 
   return (

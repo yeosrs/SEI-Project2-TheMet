@@ -22,13 +22,9 @@ const Navbar = (props) => {
     getDepartments();
   }, []);
 
-  let depts = departments.departments.map((ele) => {
+  let depts = departments.departments.map((ele, index) => {
     return (
-      <option
-        key={ele.departmentId}
-        value={ele.departmentId}
-        className="dropdown-item"
-      >
+      <option key={index} value={ele.departmentId} className="dropdown-item">
         {ele.displayName}
       </option>
     );
@@ -74,7 +70,6 @@ const Navbar = (props) => {
               <select
                 className="dropdown-menu"
                 onChange={(e) => {
-                  console.log(selected);
                   setSelected(e.target.value);
                 }}
               >
